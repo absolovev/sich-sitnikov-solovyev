@@ -23,6 +23,7 @@ namespace DataBaseProgram
         public MainWindow()
         {
             InitializeComponent();
+            MessageBox.Show("Hello pediki!");
         }
     }
 }
