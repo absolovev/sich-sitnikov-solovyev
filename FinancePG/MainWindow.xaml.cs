@@ -40,8 +40,23 @@ namespace FinancePG
 
         private void listViewCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var transactionWindow = new TransactionWindow();
-            transactionWindow.ShowDialog();
+            try
+            {
+                var transactionWindow = new TransactionWindow(_financeContext.CreditCards.ToList()[listViewCards.SelectedIndex],
+                _financeContext.Owners.ToList()[listViewCards.SelectedIndex], _financeContext);
+                transactionWindow.ShowDialog();
+                var card = _financeContext.CreditCards.ToList()[listViewCards.SelectedIndex];
+                card = transactionWindow.Card;
+                _financeContext.Entry(card).State = EntityState.Modified;
+                _financeContext.SaveChanges();
+                UpdateData();
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+            
         }
 
         private void listViewCards_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -74,23 +89,7 @@ namespace FinancePG
             if (AddCC.DialogResult.HasValue && AddCC.DialogResult.Value)
             {
                 _financeContext.CreditCards.Add(AddCC.creditCard);
-                //_financeContext.SaveChanges();
                 _financeContext.Owners.Add(AddCC.owner);
-                //_financeContext.SaveChanges();
-
-                
-
-                var transaction = new Transaction
-                {
-                    Category = Transaction.CategoryOfTransaction.
-                        Другое,
-                    DateOfTransaction = new DateTime(1995, 1, 1),
-                    SumIncome = 1111,
-                    Type = Transaction.TypeOfTransaction.Получение,
-                    WhatIncome = "s",
-                    CreditCard = AddCC.creditCard
-                };
-                _financeContext.Transactions.Add(transaction);
                 _financeContext.SaveChanges();
             };
             UpdateData();
