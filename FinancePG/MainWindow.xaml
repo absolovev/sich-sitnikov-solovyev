@@ -31,36 +31,22 @@
     </Window.Resources>
     <DockPanel>
         <Menu FontSize="16" DockPanel.Dock="Top">
-            <MenuItem Header="File" BorderThickness="1,1,1,1" >
+            <MenuItem Header="File" BorderThickness="0,1,1,1" >
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
-                <MenuItem Header="Change" ></MenuItem>
-                <MenuItem Header="Clear" ></MenuItem>
-                <MenuItem Header="Delete"></MenuItem>
-
-                <MenuItem Header="Close Application"  ></MenuItem>
-
-            </MenuItem>
-            <MenuItem Header="Open" >
-                <MenuItem.Effect>
-                    <DropShadowEffect BlurRadius="6"/>
-                </MenuItem.Effect>
-            </MenuItem>
-            <MenuItem Header="Save">
-                <MenuItem.Effect>
-                    <DropShadowEffect BlurRadius="6"/>
-                </MenuItem.Effect>
-                <MenuItem Header="Сохранить в двоичном файле"></MenuItem>
+                <MenuItem Header="Clear" Click="MenuItem_Click_6" ></MenuItem>
+                <MenuItem Header="Close Application" Click="MenuItem_Click_5"  ></MenuItem>
             </MenuItem>
             <MenuItem Margin="40 0 0 0" Header="Search">
-                <MenuItem Header="По номеру карты"  ></MenuItem>
-                <MenuItem Header="По ФИО "  ></MenuItem>
+                <MenuItem Header="По номеру карты"></MenuItem>
+                <MenuItem Header="По валюте "></MenuItem>
+                <MenuItem Header="По Фамилии "></MenuItem>
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
             </MenuItem>
-            <MenuItem Margin="280 0 0 0 "  Header="About" >
+            <MenuItem Margin="400 0 0 0 "  Header="About" Click="MenuItem_Click_4" >
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
@@ -91,27 +77,28 @@
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Bank}"  Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Bank" >Bank</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="Bank" Click="GridViewColumnHeader_Click" >Bank</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Currency}" Width="205">
+                        <GridViewColumn  DisplayMemberBinding="{Binding Path=Currency}" Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Currency" >Currency</GridViewColumnHeader>
+                                <GridViewColumnHeader Click="GridViewColumnHeader_Click" Tag="Currency" >Currency</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Number}" Width="205">
                             <GridViewColumn.Header >
-                                <GridViewColumnHeader  Tag="Number" >Card Number</GridViewColumnHeader>
+                                <GridViewColumnHeader Click="GridViewColumnHeader_Click" Tag="Number" >Card Number</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
                     <ContextMenu Name="ContextMenu">
-                        <MenuItem Header="Добавить" Click="MenuItem_Click_2"></MenuItem>
-                        <MenuItem Header="Изменить"></MenuItem>
-                        <MenuItem  Header="Информация о владельце" Click="MenuItem_Click_1"></MenuItem>
-                        <MenuItem Header="Удалить"></MenuItem>
+                        <MenuItem Header="Add Card" Click="MenuItem_Click_2"></MenuItem>
+                        <MenuItem Header="Change Card" Click="MenuItem_Click" 
+                                  ></MenuItem>
+                        <MenuItem  Header="Owner's information" Click="MenuItem_Click_1"></MenuItem>
+                        <MenuItem Header="Delete Card " Click="MenuItem_Click_3"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.ToolTip>

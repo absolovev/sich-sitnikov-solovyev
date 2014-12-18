@@ -1,0 +1,34 @@
+﻿<Window x:Class="FinancePG.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About" Height="430" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="90" ></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="18" Grid.ColumnSpan="2" HorizontalAlignment="Center" Padding="30">Разработичики программы: </TextBlock>
+        <StackPanel Grid.Row="2">
+            <TextBlock FontSize="16" > Александр Соловьев</TextBlock>
+            <TextBlock> студент группы 276(2) ВШЭ</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <TextBlock FontSize="16" > Сыч Максим</TextBlock>
+            <TextBlock >студент группы 275(2)</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="4" >
+            <TextBlock  FontSize="16"> Ситников Евгений</TextBlock>
+            <TextBlock> Студент группы 275(1)</TextBlock>
+        </StackPanel>
+        <Image Grid.Column="1" Grid.Row="2" Source="Imag/Max.jpg" Stretch="UniformToFill" Margin="5 5 5 5" ></Image>
+        <Button Grid.ColumnSpan="2" Grid.Row="5" Click="Button_Click"> OK </Button>
+    </Grid>
+</Window>

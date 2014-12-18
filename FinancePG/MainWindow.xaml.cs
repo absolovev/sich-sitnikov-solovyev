@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace FinancePG
@@ -26,15 +29,12 @@ namespace FinancePG
         public void UpdateData()
         {
             listViewCards.Items.Clear();
-            if (_financeContext.CreditCards.ToList().Count == 0)
-                MessageBox.Show("Your list of card is empty!");
-            else
-            {
+
                 foreach (var card in _financeContext.CreditCards.ToList())
                 {
                     listViewCards.Items.Add(card);
                 }
-            }
+            
            
         }
 
@@ -129,8 +129,22 @@ namespace FinancePG
             _financeContext.SaveChanges();
             UpdateData();
         }
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            About aboutWindow = new About();
+            aboutWindow.ShowDialog();
+        }
 
-       
-
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            foreach (var entity in _financeContext.CreditCards)
+                _financeContext.CreditCards.Remove(entity);
+            _financeContext.SaveChanges();
+            UpdateData();
+        }  
     }
 }

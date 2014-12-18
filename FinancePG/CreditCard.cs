@@ -16,8 +16,6 @@ namespace FinancePG
         public string Bank { get; set; }
         public string Currency { get; set; }
 
-        //Owner owner { get; set; }
-        //public int OwnerId { get; set; }
         public ICollection<Transaction> ListOfTransactions { get; set; }
 
         public CreditCard()

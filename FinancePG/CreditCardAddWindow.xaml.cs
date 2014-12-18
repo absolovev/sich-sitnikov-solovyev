@@ -55,24 +55,70 @@ namespace FinancePG
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-            
-            creditCard = new CreditCard
+            creditCard = new CreditCard();
+            try
             {
-                Bank = BankTextBox.Text,
-                Number = int.Parse(numberTextBox.Text), 
-                Currency = CurrencyTextBox.Text
-            };
-
-            owner = new Owner
+                creditCard.Bank = BankTextBox.Text;
+            }
+            catch (Exception)
             {
-                Age = int.Parse(AgeTextBox.Text),
-                Name = NameTextBox.Text, Surname = SurNameTextBox.Text,
-                Card = creditCard 
-            };
 
-            //Context.CreditCards.Add(creditCard);
-            //Context.Owners.Add(owner);
+                MessageBox.Show("Incorrect Bank's value", "Enter it again", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                creditCard.Number = long.Parse(numberTextBox.Text);
+            }
+            catch (Exception)
+            {
 
+                MessageBox.Show("Incorrect Number's value", "Enter it again", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                creditCard.Currency = CurrencyTextBox.Text;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Incorrect Currency's value", "Enter it again", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            owner = new Owner();
+            try
+            {
+                owner.Age = int.Parse(AgeTextBox.Text);
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Incorrect Age's value", "Enter it again", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                owner.Name = NameTextBox.Text;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Incorrect FirstName's value", "Enter it again", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                owner.Surname = SurNameTextBox.Text;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Incorrect SurName's value", "Enter it again", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            owner.Card = creditCard;
             DialogResult = true;
         }
     }

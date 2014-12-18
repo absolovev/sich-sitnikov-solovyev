@@ -8,10 +8,10 @@
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
-                <MenuItem Name="New" Header="Clear data"  ></MenuItem>
+                <MenuItem Name="New" Header="Clear all transactions" Click="New_Click"  ></MenuItem>
                 <MenuItem Name="Exit" Header="Exit"   ></MenuItem>
             </MenuItem>
-            <MenuItem Header =" About" Margin="450 0 0 0" >
+            <MenuItem Header =" About" Margin="480 0 0 0" Click="MenuItem_Click_4" >
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
@@ -19,9 +19,12 @@
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="205*"></ColumnDefinition>
+                <ColumnDefinition Width="205*"></ColumnDefinition>
+                <ColumnDefinition Width="132*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="45*"/>
+                <ColumnDefinition Width="17*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55*" ></RowDefinition>
@@ -30,12 +33,12 @@
                 <RowDefinition Height="170*" ></RowDefinition>
                 <RowDefinition Height="106*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock FontSize="24"  Foreground="DarkSlateBlue" FontWeight="Bold" Grid.ColumnSpan="3" 
-                       HorizontalAlignment="Center" Padding="10" Margin="180,0,80,0"
-                       Width="318" > Credit Card № :</TextBlock>
-            <TextBlock Name="textBlockCreditCard" Grid.Row="1" Grid.ColumnSpan="3" FontSize="22"
-                       FontWeight="ExtraLight" Padding="3" HorizontalAlignment="Center" > </TextBlock>
-            <ListView Grid.Row="3" Grid.ColumnSpan="3" Margin="0 5 0 0" Name="listViewTransactions" 
+            <TextBlock FontSize="24"  Foreground="DarkSlateBlue" FontWeight="Bold" Grid.ColumnSpan="2" 
+                       HorizontalAlignment="Center" Padding="10" Margin="6,0,13,0"
+                       Width="318" Grid.Column="1" > Credit Card № :</TextBlock>
+            <TextBlock Name="textBlockCreditCard" FontStretch="Medium" Grid.Row="1" FontSize="22"
+                       FontWeight="ExtraLight" Padding="3" HorizontalAlignment="Center" Margin="128,0,91,0" Width="323" Grid.ColumnSpan="3" />
+            <ListView Grid.Row="3" Grid.ColumnSpan="6" Margin="0,5,0,0" Name="listViewTransactions" 
                       MouseLeftButtonDown="listViewTransactions_MouseLeftButtonDown"
                       MouseDoubleClick="listViewTransactions_MouseDoubleClick">
                 <ListView.ToolTip>
@@ -59,7 +62,7 @@
                         </GridViewColumn>
                         <GridViewColumn  DisplayMemberBinding="{Binding Path=SumIncome}" Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="SumIncome">Sum</GridViewColumnHeader>
+                                <GridViewColumnHeader  Tag="SumIncome">Sum</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn  DisplayMemberBinding="{Binding Path=DateOfTransaction}" Width="205">
@@ -78,7 +81,7 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-            <Button  BorderBrush="White" Background="White" Grid.Row="4" Margin="45,10,45,10" Grid.Column="1" Click="Adding">
+            <Button  BorderBrush="White" Background="White" Grid.Row="4" Margin="45,10" Grid.Column="1" Click="Adding">
                 <Button.ToolTip>
                     <ToolTip Background="#90004455" Foreground="White">Add Transaction</ToolTip>
                 </Button.ToolTip>
@@ -88,13 +91,16 @@
                 <TextBlock HorizontalAlignment="Center" FontSize="18"><Run Text="Owner:"/></TextBlock>
                 <TextBlock x:Name="textBlockOwner" HorizontalAlignment="Left" Margin="10,10,8,10" FontSize="12" Height="65"/>
             </StackPanel>
-            <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="175,0,0,0">
+            <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Margin="175,0,-1,0">
                 <TextBlock Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" FontSize="18" > Bank:</TextBlock>
                 <TextBlock HorizontalAlignment="Center" Name="textBlockBank" Margin="0,10" FontSize="12" Height="63"></TextBlock>
             </StackPanel>
-            <TextBlock FontWeight="ExtraLight" Grid.Row="2" HorizontalAlignment="Right">Account Balance::</TextBlock>
-            <TextBlock Margin="15 0 0 0" FontWeight="ExtraLight"  HorizontalAlignment="Left" Name="BalanceTextBlock" Grid.Column="1"  Grid.Row="2" ></TextBlock>
-            <TextBlock Name="currencyTextBlock" Grid.Row="2" Grid.Column="2" FontWeight="ExtraLight"></TextBlock>
+            <TextBlock FontWeight="ExtraLight" Grid.Row="2" HorizontalAlignment="Right" Grid.ColumnSpan="2" 
+                       Margin="0,0,204,0">Account Balance::</TextBlock>
+            <TextBlock Margin="15,0,0,0" FontWeight="ExtraLight"  HorizontalAlignment="Left" 
+                       Name="BalanceTextBlock" Grid.Column="1"  Grid.Row="2" ></TextBlock>
+            <TextBlock Name="currencyTextBlock" Grid.Row="2" Grid.Column="2" FontWeight="ExtraLight"
+                       Grid.ColumnSpan="4" Margin="0,0,-1,0"></TextBlock>
         </Grid>
     </DockPanel>
 </Window>

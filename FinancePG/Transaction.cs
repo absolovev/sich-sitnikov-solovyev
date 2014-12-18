@@ -15,8 +15,8 @@ namespace FinancePG
 
         public enum TypeOfTransaction
         {
-            Расход,
-            Получение,
+            Expense,
+            Income,
         }
 
         public enum CategoryOfTransaction

@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreditCardAddWindow.xaml.cs">
       <DependentUpon>CreditCardAddWindow.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,10 @@
     <Compile Include="TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreditCardAddWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,7 +134,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Imag\" />
+    <Resource Include="Imag\Max.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imag\Add.png" />
+    <Resource Include="Imag\Cancel.png" />
+    <Resource Include="Imag\find.png" />
+    <Resource Include="Imag\MainIcon.jpg" />
+    <Resource Include="Imag\myphoto.jpg" />
+    <Resource Include="Imag\nauchn.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
