@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FinancePG
 {
@@ -24,6 +16,9 @@ namespace FinancePG
         public MainWindow()
         {
             InitializeComponent();
+            _financeContext.CreditCards.Load();
+            _financeContext.Owners.Load();
+            _financeContext.Transactions.Load();
             UpdateData();
         }
 
@@ -35,7 +30,7 @@ namespace FinancePG
                 MessageBox.Show("Your list of card is empty!");
             else
             {
-                foreach (CreditCard card in _financeContext.CreditCards.ToList())
+                foreach (var card in _financeContext.CreditCards.ToList())
                 {
                     listViewCards.Items.Add(card);
                 }
@@ -45,7 +40,7 @@ namespace FinancePG
 
         private void listViewCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            TransactionWindow transactionWindow = new TransactionWindow();
+            var transactionWindow = new TransactionWindow();
             transactionWindow.ShowDialog();
         }
 
@@ -54,6 +49,7 @@ namespace FinancePG
             ToolTipsCreditCard.IsEnabled = false;
             ToolTipsCreditCard.IsOpen = false;
         }
+
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
@@ -73,16 +69,18 @@ namespace FinancePG
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            CreditCardAddWindow AddCC = new CreditCardAddWindow();
+            var AddCC = new CreditCardAddWindow();
             AddCC.ShowDialog();
             if (AddCC.DialogResult.HasValue && AddCC.DialogResult.Value)
             {
                 _financeContext.CreditCards.Add(AddCC.creditCard);
-                _financeContext.SaveChanges();
+                //_financeContext.SaveChanges();
                 _financeContext.Owners.Add(AddCC.owner);
-                _financeContext.SaveChanges();
+                //_financeContext.SaveChanges();
 
-                Transaction transaction = new Transaction
+                
+
+                var transaction = new Transaction
                 {
                     Category = Transaction.CategoryOfTransaction.
                         Другое,
@@ -95,6 +93,41 @@ namespace FinancePG
                 _financeContext.Transactions.Add(transaction);
                 _financeContext.SaveChanges();
             };
+            UpdateData();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var creditCard = new CreditCardAddWindow(_financeContext.CreditCards
+                .ToList()[listViewCards.SelectedIndex], _financeContext.Owners.ToList()[listViewCards.SelectedIndex]);
+            creditCard.ShowDialog();
+            CreditCard card = _financeContext.CreditCards
+                .ToList()[listViewCards.SelectedIndex];
+            Owner owner = _financeContext.Owners.ToList()[listViewCards.SelectedIndex];
+            if (creditCard.DialogResult.HasValue && creditCard.DialogResult.Value)
+            {
+                card.Bank = creditCard.creditCard.Bank;
+                card.Currency = creditCard.creditCard.Currency;
+                card.Number = creditCard.creditCard.Number;
+                owner.Name = creditCard.owner.Name;
+                owner.Surname = creditCard.owner.Surname;
+                owner.Age = creditCard.owner.Age;
+            }
+            if (card == null) return;
+            _financeContext.Entry(card).State = EntityState.Modified;
+            if (owner != null)
+                _financeContext.Entry(owner).State = EntityState.Modified;
+            _financeContext.SaveChanges();
+            UpdateData();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            CreditCard cardToDelete = _financeContext.CreditCards.ToList()[listViewCards.SelectedIndex];
+            Owner ownerToDelete = _financeContext.Owners.ToList()[listViewCards.SelectedIndex];
+            _financeContext.CreditCards.Remove(cardToDelete);
+            _financeContext.Owners.Remove(ownerToDelete);
+            _financeContext.SaveChanges();
             UpdateData();
         }
 

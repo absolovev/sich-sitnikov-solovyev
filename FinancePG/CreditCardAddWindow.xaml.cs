@@ -26,7 +26,26 @@ namespace FinancePG
         public CreditCardAddWindow()
         {
             InitializeComponent();
-            //Context = context;
+            
+        }
+
+        public CreditCardAddWindow(CreditCard card, Owner owner)
+        {
+            InitializeComponent();
+            try
+            {
+                MessageBox.Show(card.Bank.ToString());
+                BankTextBox.Text = card.Bank;
+                numberTextBox.Text = card.Number.ToString();
+                CurrencyTextBox.Text = card.Currency;
+                NameTextBox.Text = owner.Name;
+                SurNameTextBox.Text = owner.Surname;
+                AgeTextBox.Text = owner.Age.ToString();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error with input data");
+            }
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
@@ -36,9 +55,20 @@ namespace FinancePG
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-            creditCard = new CreditCard { Bank = BankTextBox.Text, Number = int.Parse(numberTextBox.Text), Currency = CurrencyTextBox.Text };
+            
+            creditCard = new CreditCard
+            {
+                Bank = BankTextBox.Text,
+                Number = int.Parse(numberTextBox.Text), 
+                Currency = CurrencyTextBox.Text
+            };
 
-            owner = new Owner { Age = int.Parse(AgeTextBox.Text), Name = NameTextBox.Text, Surname = SurNameTextBox.Text, Card = creditCard };
+            owner = new Owner
+            {
+                Age = int.Parse(AgeTextBox.Text),
+                Name = NameTextBox.Text, Surname = SurNameTextBox.Text,
+                Card = creditCard 
+            };
 
             //Context.CreditCards.Add(creditCard);
             //Context.Owners.Add(owner);
