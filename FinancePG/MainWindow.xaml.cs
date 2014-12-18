@@ -24,14 +24,7 @@ namespace FinancePG
         public MainWindow()
         {
             InitializeComponent();
-            //GenerateData();
-            //UpdateWindow();
-        }
-
-        public void GenerateData()
-        {
-            _financeContext.SaveChanges();
-            listViewCards.DataContext = _financeContext;
+            UpdateData();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -58,7 +51,46 @@ namespace FinancePG
                 _financeContext.Transactions.Add(transaction);
                 _financeContext.SaveChanges();
             };
-
+            UpdateData();
         }
+
+        public void UpdateData()
+        {
+            listViewCards.Items.Clear();
+            if (_financeContext.CreditCards.ToList().Count == 0)
+                MessageBox.Show("Your list of card is empty!");
+            else
+            {
+                foreach (CreditCard card in _financeContext.CreditCards.ToList())
+                {
+                    listViewCards.Items.Add(card);
+                }
+            }
+           
+        }
+
+        private void listViewCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TransactionWindow transactionWindow = new TransactionWindow();
+            transactionWindow.ShowDialog();
+        }
+
+        private void listViewCards_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            int i = listViewCards.SelectedIndex;
+            string str = "Hui+Pizda = {0}" + i;
+            MessageBox.Show(str);
+        }
+
+        //private void listViewCards_MouseMove(object sender, MouseEventArgs e)
+        //{
+            
+        //    int i = listViewCards.SelectedIndex;
+        //    string str = "Hui+Pizda = {0}" + i;
+        //    MessageBox.Show(str);
+        //}
+
+       
+
     }
 }

@@ -1,8 +1,102 @@
 ﻿<Window x:Class="FinancePG.TransactionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TransactionWindow" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+        Title="TransactionWindow" Height="450" Width="620" ResizeMode="NoResize">
+    <DockPanel>
+        <Menu FontSize="16" DockPanel.Dock="Top">
+            <MenuItem BorderThickness="1 1 1 1" Header="Действие" >
+                <MenuItem.Effect>
+                    <DropShadowEffect BlurRadius="6"/>
+                </MenuItem.Effect>
+                <MenuItem Name="Add" Header="Добавить" ></MenuItem>
+                <MenuItem Name="Change" Header="Изменить"  ></MenuItem>
+                <MenuItem Name="New" Header="Очистить список"  ></MenuItem>
+                <MenuItem  Name="Delete" Header="Удалить" ></MenuItem>
+                <MenuItem Name="Exit" Header="Выход"   ></MenuItem>
+            </MenuItem>
+            <MenuItem Name="OpenBinaryTransactions" Header="Открыть" >
+                <MenuItem.Effect>
+                    <DropShadowEffect BlurRadius="6"/>
+                </MenuItem.Effect>
+            </MenuItem>
+            <MenuItem Header="Сохранить ">
+                <MenuItem.Effect>
+                    <DropShadowEffect BlurRadius="6"/>
+                </MenuItem.Effect>
+                <MenuItem Name="SaveBinaryTransactions" Header="Сохранить в двоичном файле"></MenuItem>
+            </MenuItem>
+            <MenuItem Header =" Об авторе" Margin="250 0 0 0" >
+                <MenuItem.Effect>
+                    <DropShadowEffect BlurRadius="6"/>
+                </MenuItem.Effect>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55*" ></RowDefinition>
+                <RowDefinition Height="48*" ></RowDefinition>
+                <RowDefinition Height="17*" ></RowDefinition>
+                <RowDefinition Height="170*" ></RowDefinition>
+                <RowDefinition Height="106*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="24"  Foreground="DarkSlateBlue" FontWeight="Bold" Grid.ColumnSpan="3" HorizontalAlignment="Center" Padding="10" Margin="150,0,149.333,0" Width="318" > Кредитная карточка № :</TextBlock>
+            <TextBlock Name="textBlockCreditCard" Grid.Row="1" Grid.ColumnSpan="3" FontSize="22" FontWeight="ExtraLight" Padding="3" HorizontalAlignment="Center"  > 489049632882</TextBlock>
+            <ListView Grid.Row="3" Grid.ColumnSpan="3" Margin="0 5 0 0" Name="listViewTransactions"  >
+
+                <ListView.ToolTip>
+                    <ToolTip Name="ToolTipsTransactions" IsEnabled="False" Background="#90004455">
+                        <StackPanel>
+                            <TextBlock Name="WhatIncomeToolTip" Margin="3" Foreground="White"></TextBlock>
+                            <TextBlock Name="CategoryToolTip" Margin="3" Foreground="White"></TextBlock>
+                            <TextBlock Name="SumIncomeTolltip" Margin="3" Foreground="White"></TextBlock>
+                            <TextBlock Name="TypeTooltip" Margin="3" Foreground="White" ></TextBlock>
+                            <TextBlock Name="DateToolTip" Margin="3" Foreground="White"></TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </ListView.ToolTip>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn  DisplayMemberBinding="{Binding Path=Type}" Width="205">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Type">Тип транзакции</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn  DisplayMemberBinding="{Binding Path=SumIncome}" Width="205">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="SumIncome">Сумма</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn  DisplayMemberBinding="{Binding Path=DateOfTransaction}" Width="205">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="DateOfTransaction" >Дата</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button  BorderBrush="White" Background="White" Grid.Row="4" Margin="45,10,45,10" Grid.Column="1">
+                <Button.ToolTip>
+                    <ToolTip Background="#90004455" Foreground="White">Добавление транзакции</ToolTip>
+                </Button.ToolTip>
+                <Image Stretch="Fill" Source="Imag/Add.png"></Image>
+            </Button>
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,166,0">
+                <TextBlock HorizontalAlignment="Center" FontSize="18"><Run Text="Владелец:"/></TextBlock>
+                <TextBlock x:Name="textBlockOwner" HorizontalAlignment="Left" Margin="10,10,8,10" FontSize="12" Height="65"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="175,0,0,0">
+                <TextBlock Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" FontSize="18" > Банк:</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Name="textBlockBank" Margin="0,10" FontSize="12" Height="63"></TextBlock>
+            </StackPanel>
+            <TextBlock FontWeight="ExtraLight" Grid.Row="2" HorizontalAlignment="Right">Баланс кредитной карточки:</TextBlock>
+            <TextBlock Margin="15 0 0 0" FontWeight="ExtraLight"  HorizontalAlignment="Left" Name="BalanceTextBlock" Grid.Column="1"  Grid.Row="2" ></TextBlock>
+            <TextBlock Name="currencyTextBlock" Grid.Row="2" Grid.Column="2" FontWeight="ExtraLight"></TextBlock>
+        </Grid>
+    </DockPanel>
 </Window>
