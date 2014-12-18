@@ -1,0 +1,45 @@
+﻿<Window x:Class="FinancePG.FindWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FindWindow" Height="300" Width="500" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Name="TextBlockFind" Grid.ColumnSpan="2" FontSize="14" Foreground="DarkSlateBlue" 
+                   FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center">
+            Enter your Credit Cards's number:</TextBlock>
+        <TextBox Name="TextBoxFind" Grid.Row="1" Height="20" Grid.ColumnSpan="2" Width="200" Margin="0 0 20 0"></TextBox>
+        <Button BorderBrush="White" Background="White" Grid.Column="1" Grid.Row="1" Width="40" 
+                Height="30" Margin="10 0 0 0" Click="Button_Click" >
+            <Image Stretch="Fill" Source="Imag/find.png"></Image>
+        </Button>
+        <ListView Name="ListViewFindCards" Grid.Row="3" Grid.ColumnSpan="2" MouseDoubleClick="ListViewFindCards_MouseDoubleClick" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Bank}"  Width="150">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Bank" Click="lvUsersColumnHeader_Click">Bank</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Owner}" Width="160">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Currency" Click="lvUsersColumnHeader_Click" >Currency</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Number}" Width="180">
+                        <GridViewColumn.Header >
+                            <GridViewColumnHeader  Tag="Number" Click="lvUsersColumnHeader_Click" >Number</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

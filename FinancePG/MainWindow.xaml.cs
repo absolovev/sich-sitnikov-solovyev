@@ -10,11 +10,9 @@ using System.Windows.Input;
 
 namespace FinancePG
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private bool g;
         public FinanceContext _financeContext = new FinanceContext();
         public MainWindow()
         {
@@ -24,20 +22,14 @@ namespace FinancePG
             _financeContext.Transactions.Load();
             UpdateData();
         }
-
-
         public void UpdateData()
         {
             listViewCards.Items.Clear();
-
                 foreach (var card in _financeContext.CreditCards.ToList())
                 {
                     listViewCards.Items.Add(card);
-                }
-            
-           
+                }        
         }
-
         private void listViewCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -53,19 +45,14 @@ namespace FinancePG
             }
             catch (Exception)
             {
-
                 return;
-            }
-            
+            } 
         }
-
         private void listViewCards_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ToolTipsCreditCard.IsEnabled = false;
             ToolTipsCreditCard.IsOpen = false;
         }
-
-
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             try
@@ -81,7 +68,6 @@ namespace FinancePG
                 
             }
         }
-
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             var AddCC = new CreditCardAddWindow();
@@ -94,7 +80,6 @@ namespace FinancePG
             };
             UpdateData();
         }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var creditCard = new CreditCardAddWindow(_financeContext.CreditCards
@@ -134,7 +119,6 @@ namespace FinancePG
             About aboutWindow = new About();
             aboutWindow.ShowDialog();
         }
-
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
             Close();
@@ -145,6 +129,29 @@ namespace FinancePG
                 _financeContext.CreditCards.Remove(entity);
             _financeContext.SaveChanges();
             UpdateData();
-        }  
+        }
+        private GridViewColumnHeader listViewSortCol = null;
+        private SortAdorner listViewSortAdorner = null;
+
+        private void lvUsersColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader column = (sender as GridViewColumnHeader);
+            string sortBy = column.Tag.ToString();
+            if (listViewSortCol != null)
+            {
+                AdornerLayer.GetAdornerLayer(listViewSortCol).Remove(listViewSortAdorner);
+                listViewCards.Items.SortDescriptions.Clear();
+            }
+
+            ListSortDirection newDir = ListSortDirection.Ascending;
+            if (listViewSortCol == column && listViewSortAdorner.Direction == newDir)
+                newDir = ListSortDirection.Descending;
+
+            listViewSortCol = column;
+            listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
+            AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
+            listViewCards.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+        }
+
     }
 }

@@ -39,9 +39,9 @@
                 <MenuItem Header="Close Application" Click="MenuItem_Click_5"  ></MenuItem>
             </MenuItem>
             <MenuItem Margin="40 0 0 0" Header="Search">
-                <MenuItem Header="По номеру карты"></MenuItem>
-                <MenuItem Header="По валюте "></MenuItem>
-                <MenuItem Header="По Фамилии "></MenuItem>
+                <MenuItem Header="By Cards's Number"></MenuItem>
+                <MenuItem Header="By Currency "></MenuItem>
+                <MenuItem Header="By Surname "></MenuItem>
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
@@ -77,17 +77,17 @@
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Bank}"  Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Bank" Click="GridViewColumnHeader_Click" >Bank</GridViewColumnHeader>
+                                <GridViewColumnHeader Click="lvUsersColumnHeader_Click" Tag="Bank">Bank</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn  DisplayMemberBinding="{Binding Path=Currency}" Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Click="GridViewColumnHeader_Click" Tag="Currency" >Currency</GridViewColumnHeader>
+                                <GridViewColumnHeader Click="lvUsersColumnHeader_Click"  Tag="Currency" >Currency</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Number}" Width="205">
                             <GridViewColumn.Header >
-                                <GridViewColumnHeader Click="GridViewColumnHeader_Click" Tag="Number" >Card Number</GridViewColumnHeader>
+                                <GridViewColumnHeader Click="lvUsersColumnHeader_Click" Tag="Number" >Card Number</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                     </GridView>
