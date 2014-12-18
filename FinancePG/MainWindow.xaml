@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FinancePG.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="450" Width="624" ResizeMode="NoResize">
+        Title="MainWindow" Height="380" Width="625" ResizeMode="NoResize">
     <Window.Resources>
         <CollectionViewSource 
               Source="{Binding Source={x:Static Application.Current}, Path=AuctionItems}"   
@@ -31,37 +31,36 @@
     </Window.Resources>
     <DockPanel>
         <Menu FontSize="16" DockPanel.Dock="Top">
-            <MenuItem Header="Действие" BorderThickness="1,1,1,1" >
+            <MenuItem Header="File" BorderThickness="1,1,1,1" >
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
-                <MenuItem Header="Добавить" Click="MenuItem_Click" ></MenuItem>
-                <MenuItem Header="Изменить" ></MenuItem>
-                <MenuItem Header="Очистить список" ></MenuItem>
-                <MenuItem Header="Удалить"></MenuItem>
+                <MenuItem Header="Change" ></MenuItem>
+                <MenuItem Header="Clear" ></MenuItem>
+                <MenuItem Header="Delete"></MenuItem>
 
-                <MenuItem Header="Выход"  ></MenuItem>
+                <MenuItem Header="Close Application"  ></MenuItem>
 
             </MenuItem>
-            <MenuItem Header="Открыть" >
+            <MenuItem Header="Open" >
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
             </MenuItem>
-            <MenuItem Header="Сохранить">
+            <MenuItem Header="Save">
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
                 <MenuItem Header="Сохранить в двоичном файле"></MenuItem>
             </MenuItem>
-            <MenuItem Margin="40 0 0 0" Header="Поиск">
+            <MenuItem Margin="40 0 0 0" Header="Search">
                 <MenuItem Header="По номеру карты"  ></MenuItem>
                 <MenuItem Header="По ФИО "  ></MenuItem>
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
             </MenuItem>
-            <MenuItem Margin="155 0 0 0 "  Header="Об авторах" >
+            <MenuItem Margin="280 0 0 0 "  Header="About" >
                 <MenuItem.Effect>
                     <DropShadowEffect BlurRadius="6"/>
                 </MenuItem.Effect>
@@ -69,40 +68,61 @@
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="112*"></ColumnDefinition>
+                <ColumnDefinition Width="17*"></ColumnDefinition>
+                <ColumnDefinition Width="95*"/>
                 <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="206*"></ColumnDefinition>
-                <ColumnDefinition Width="161*"></ColumnDefinition>
+                <ColumnDefinition Width="207*"></ColumnDefinition>
+                <ColumnDefinition Width="141*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="15*"/>
                 <ColumnDefinition Width="44*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="70"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Grid.Row="0"  Grid.ColumnSpan="3"
-              Style="{StaticResource titleStyle}" Margin="19,10,110,18" Grid.Column="2"><Run Language="ru-ru" Text="К"/><Run Text="редитные кар"/><Run Language="ru-ru" Text="ты"/><Run Text=" :"/></TextBlock>
-            <ListView Name="listViewCards" Grid.Row="2" Grid.ColumnSpan="6" >
+            <TextBlock HorizontalAlignment="Center" Grid.Row="0"
+              Style="{StaticResource titleStyle}" Margin="44,10,36,18" Grid.Column="4">Credit Cards</TextBlock>
+            <ListView Name="listViewCards" Grid.Row="2" Grid.ColumnSpan="9"
+                      MouseDoubleClick="listViewCards_MouseDoubleClick" MouseLeftButtonDown="listViewCards_MouseLeftButtonDown">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Bank}"  Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Bank" >Банк</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="Bank" >Bank</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Owner}" Width="205">
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Currency}" Width="205">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Owner" >ФИО</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="Currency" >Currency</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Number}" Width="205">
                             <GridViewColumn.Header >
-                                <GridViewColumnHeader  Tag="Number" >Номер карты</GridViewColumnHeader>
+                                <GridViewColumnHeader  Tag="Number" >Card Number</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu Name="ContextMenu">
+                        <MenuItem Header="Добавить" Click="MenuItem_Click_2"></MenuItem>
+                        <MenuItem Header="Изменить"></MenuItem>
+                        <MenuItem  Header="Информация о владельце" Click="MenuItem_Click_1"></MenuItem>
+                        <MenuItem Header="Удалить"></MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.ToolTip>
+                    <ToolTip Name="ToolTipsCreditCard" IsEnabled="False" Background="#90004455">
+                        <StackPanel>
+                            <TextBlock Name="NameToolTip" Margin="3" Foreground="White"></TextBlock>
+                            <TextBlock Name="SurnameToolTip" Margin="3" Foreground="White"></TextBlock>
+                            <TextBlock Name="AgeToolTip" Margin="3" Foreground="White"></TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </ListView.ToolTip>
             </ListView>
         </Grid>
     </DockPanel>

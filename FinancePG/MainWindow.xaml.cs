@@ -27,7 +27,51 @@ namespace FinancePG
             UpdateData();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+
+        public void UpdateData()
+        {
+            listViewCards.Items.Clear();
+            if (_financeContext.CreditCards.ToList().Count == 0)
+                MessageBox.Show("Your list of card is empty!");
+            else
+            {
+                foreach (CreditCard card in _financeContext.CreditCards.ToList())
+                {
+                    listViewCards.Items.Add(card);
+                }
+            }
+           
+        }
+
+        private void listViewCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TransactionWindow transactionWindow = new TransactionWindow();
+            transactionWindow.ShowDialog();
+        }
+
+        private void listViewCards_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ToolTipsCreditCard.IsEnabled = false;
+            ToolTipsCreditCard.IsOpen = false;
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AgeToolTip.Text = "Owner's Age:   " + _financeContext.Owners.ToArray()[listViewCards.SelectedIndex].Age.ToString();
+                NameToolTip.Text = "Owner's Name:   " + _financeContext.Owners.ToArray()[listViewCards.SelectedIndex].Name;
+                SurnameToolTip.Text = "Owner's SurName:   " + _financeContext.Owners.ToArray()[listViewCards.SelectedIndex].Surname;
+                ToolTipsCreditCard.IsEnabled = true;
+                ToolTipsCreditCard.IsOpen = true;
+            }
+            catch
+            {
+                
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             CreditCardAddWindow AddCC = new CreditCardAddWindow();
             AddCC.ShowDialog();
@@ -53,42 +97,6 @@ namespace FinancePG
             };
             UpdateData();
         }
-
-        public void UpdateData()
-        {
-            listViewCards.Items.Clear();
-            if (_financeContext.CreditCards.ToList().Count == 0)
-                MessageBox.Show("Your list of card is empty!");
-            else
-            {
-                foreach (CreditCard card in _financeContext.CreditCards.ToList())
-                {
-                    listViewCards.Items.Add(card);
-                }
-            }
-           
-        }
-
-        private void listViewCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            TransactionWindow transactionWindow = new TransactionWindow();
-            transactionWindow.ShowDialog();
-        }
-
-        private void listViewCards_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            int i = listViewCards.SelectedIndex;
-            string str = "Hui+Pizda = {0}" + i;
-            MessageBox.Show(str);
-        }
-
-        //private void listViewCards_MouseMove(object sender, MouseEventArgs e)
-        //{
-            
-        //    int i = listViewCards.SelectedIndex;
-        //    string str = "Hui+Pizda = {0}" + i;
-        //    MessageBox.Show(str);
-        //}
 
        
 
