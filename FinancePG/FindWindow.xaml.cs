@@ -20,11 +20,49 @@ namespace FinancePG
     /// </summary>
     public partial class FindWindow : Window
     {
-        private CreditCard Card;
-        public FindWindow(CreditCard card)
+        private List<CreditCard> Cards; 
+        private bool G;
+        private FinanceContext _financeContext;
+        private Owner owner;
+        public FindWindow(List<CreditCard> cards, bool g, FinanceContext financeContext)
         {
+            _financeContext = financeContext;
+            G = g; 
+            Cards = cards;
             InitializeComponent();
-            Card = card;
+            if (G == false)
+                TextBlockFind.Text = "Enter Card's Bank";
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (G == true)
+            {
+                UpdateFindList();
+            }
+            if (G == false)
+            {
+                UpdateFindList1();
+            }
+        }
+        private void UpdateFindList()
+        {
+            List<CreditCard> findCard = new List<CreditCard>();
+            findCard = Cards.FindAll(t => t.Number.ToString().StartsWith(TextBoxFind.Text));
+            ListViewFindCards.Items.Clear();
+            foreach (var card in findCard)
+            {
+                ListViewFindCards.Items.Add(card);
+            }
+        }
+        private void UpdateFindList1()
+        {
+            List<CreditCard> findCard = new List<CreditCard>();
+            findCard = Cards.FindAll(t => t.Bank.StartsWith(TextBoxFind.Text));
+            ListViewFindCards.Items.Clear();
+            foreach (var card in findCard)
+            {
+                ListViewFindCards.Items.Add(card);
+            }
         }
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
@@ -49,15 +87,14 @@ namespace FinancePG
             ListViewFindCards.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void ListViewFindCards_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            var query = _financeContext.Owners.ToList().Where(t=>t.Id == Cards[ListViewFindCards.SelectedIndex].Id).OrderByDescending(t=>t.Age);
+            owner = query.ToList()[0];
+            
             try
             {
-                TransactionAddWindow transwindow = new TransactionAddWindow(manager.ListOfCards[ListViewFindCards.SelectedIndex]);
+                TransactionWindow transwindow = new TransactionWindow(Cards[ListViewFindCards.SelectedIndex], owner, _financeContext );
                 transwindow.ShowDialog();
             }
             catch (Exception)
